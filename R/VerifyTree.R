@@ -1,6 +1,11 @@
 #' Verify tree structure
 #'
-#' @details The hypothesis testing is made with the matrix of Spearman's rho
+#' @description Given a matrix of data, where the rows are observations
+#' and the columns are variables, it verifies the statistical significance of
+#' hierarchical nodes provided by hclust, through the use of the
+#' empirical matrix of Spearman's rho.
+#'
+#' @details The hypothesis testing, as well as the clustering, is made with the matrix of Spearman's rho
 #' for a given dataset, see \insertCite{gaisser2010testing}{ercv}.
 #'
 #' @param data data used for the clustering
@@ -11,7 +16,7 @@
 #'
 #' @importFrom "stats" cor quantile hclust dist
 #' @author Simon-Pierre Gadoury
-#' @return The tree, modified, according to the results of the tests.
+#' @return A list, containing the bootrap samples and the initial tree structure, modified, according to the results of the tests
 #' @examples
 #' require(HAC)
 #' str <- hac(type = 1, tree = list(list(list("X4", "X5", 6),
@@ -101,13 +106,12 @@ VerifyTree <- function(data, alpha = 0.95, nboot = 500,
           TreeElimination <- function(tree){
 
             for (i in 1:length(tree)){
-              initialCondition <- 0
-              for (element in tree[[i]]){
-                if (length(element) > 1){
-                  initialCondition <- 1
-                  break
-                }
-              }
+              initialCondition <- 1
+              # for (element in tree[[i]]){
+              #   if (length(element) > 1){
+              #     initialCondition <- 1
+              #     break
+              #   }
               if (initialCondition == 1){
                 NewTree <- ClusterNodeSelection(tree, i, alpha, data, SpearmanBootResized)
                 e1$FinalTree <- NewTree
@@ -145,8 +149,12 @@ VerifyTree <- function(data, alpha = 0.95, nboot = 500,
           ini <- paste(res1, collapse = "")
           ini <- paste("e2$TREE", ini, sep = "")
           eval(parse(text = paste(ini, " <- IterativeTreeVerification(tree)", sep = "")))
-          eval(parse(text = paste("for (i in 1:length(", ini, ")){TreeSelection(", ini, "[[",i,"]], path = c(path, ",
-                                  i,"), k = 2)}", sep = "")))
+          for (i in 1:length(eval(parse(text = ini)))){
+            eval(parse(text = paste("TreeSelection(", ini, "[[",i,"]], path = c(path, ",
+                                  i,"), k = 2)", sep = "")))
+          }
+          # eval(parse(text = paste("for (i in 1:length(", ini, ")){TreeSelection(", ini, "[[",i,"]], path = c(path, ",
+          #                         i,"), k = 2)}", sep = "")))
         }
       }
     }
@@ -156,3 +164,4 @@ VerifyTree <- function(data, alpha = 0.95, nboot = 500,
   }
   Verif(tree)
 }
+

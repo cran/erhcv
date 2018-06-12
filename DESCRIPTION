@@ -1,7 +1,7 @@
 Package: erhcv
 Type: Package
 Title: Equi-Rank Hierarchical Clustering Validation
-Version: 0.1.1
+Version: 0.1.2
 License: GPL (>= 2)
 Author: Simon-Pierre Gadoury <spgadou@me.com>
 Maintainer: Simon-Pierre Gadoury <spgadou@me.com>
@@ -16,6 +16,6 @@ RdMacros: Rdpack
 Collate: 'VerifyTree.R' 'ClusterNodeSelection.R' 'EliminateCluster.R'
         'GetLeaves.R' 'GetPairs.R' 'hclust2tree.R' 'tree2plot.R'
 NeedsCompilation: no
-Packaged: 2018-06-08 11:06:14 UTC; Simon-Pierre
+Packaged: 2018-06-11 01:01:31 UTC; Simon-Pierre
 Repository: CRAN
-Date/Publication: 2018-06-10 17:05:38 UTC
+Date/Publication: 2018-06-12 10:34:01 UTC

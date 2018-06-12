@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClusterNodeSelection.R
 \name{ClusterNodeSelection}
 \alias{ClusterNodeSelection}
-\title{Test the significance of a subcluster directly under a given cluster}
+\title{Subcluster significance test}
 \usage{
 ClusterNodeSelection(cluster, testPos, alpha, data, BootData)
 }
@@ -23,7 +23,10 @@ The main cluster, with or without the node under test, wether the
 hypothesis can be rejected or not.
 }
 \description{
-Test the significance of a subcluster directly under a given cluster
+Test the significance of a subcluster directly under a given cluster.
+If it is not significant, the subcluster is eliminated and
+its element are merged in the main cluster. Bootstrap samples of the underlying
+data needs to be provided, as well as the structure under consideration.
 }
 \details{
 The hypothesis testing is made with the matrix of Spearman's rho

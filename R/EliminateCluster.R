@@ -1,11 +1,16 @@
-#' Eliminate a subcluster from a cluster
+#' Subcluster elimination
+#'
+#' @description Eliminate a subcluster and merge its elements to the main cluster.
 #'
 #' @param cluster the cluster under consideration (of the form provided by the function hclust2tree)
 #' @param pos the position of the subcluster, directly under the main cluster, to eliminate
 #'
 #' @include ClusterNodeSelection.R
+#'
 #' @author Simon-Pierre Gadoury
+#'
 #' @return The main cluster, without the subcluster that was eliminated.
+#'
 #' @export
 
 EliminateCluster <- function(cluster, pos){
@@ -19,8 +24,8 @@ EliminateCluster <- function(cluster, pos){
       FinalCluster[[i]] <- cluster[[pos]][[i - pos + 1]]
     }
     if (pos < length(cluster)){
-      for (i in (pos + 1):length(cluster)){
-        FinalCluster[[length(cluster[[pos]]) + i - pos]] <- cluster[[i]]
+      for (i in (pos + length(cluster[[pos]])):(length(cluster[[pos]]) + length(cluster) - 1)){
+        FinalCluster[[i]] <- cluster[[i - length(cluster[[pos]]) + 1]]
       }
     }
   }
