@@ -6,7 +6,7 @@
 #' data needs to be provided, as well as the structure under consideration.
 #'
 #' @details The hypothesis testing is made with the matrix of Spearman's rho
-#' for a given dataset, see \insertCite{gaisser2010testing}{ercv}.
+#' for a given dataset, see \insertCite{gaisser2010testing}{erhcv}.
 #'
 #' @param cluster the main cluster (of the form provided by the function hclust2tree)
 #' @param testPos the position of the subcluster to test, directly under the main cluster
@@ -48,7 +48,7 @@ ClusterNodeSelection <- function(cluster, testPos, alpha, data, BootData){
     for (i in 1:dim(MAT)[1]){
       spear_calc <- c(spear_calc, spear[MAT[i,1], MAT[i,2]])
     }
-    spear_calc <- spear_calc[spear_calc != 1][-1] # Get sampled Rho (no boot)
+    spear_calc <- spear_calc[-1] # Get sampled Rho (no boot)
     ini <- "BootData_UnderTest <- cbind(z)"
     input <- "BootData$`(z1,z2)`"
     res1 <- numeric(dim(MAT)[1])
@@ -71,7 +71,7 @@ ClusterNodeSelection <- function(cluster, testPos, alpha, data, BootData){
 
     MAT <- (T2_FNB - T2_FN) * sqrt(n)
     CritVal_dist <- apply(MAT, 1, function(x) sum(x^2) / m)
-    K <- quantile(CritVal_dist, alpha)
+    K <- quantile(CritVal_dist, alpha, type = 1)
     Q <- sum((spear_calc - mean(spear_calc))^2) * (n / m)
 
     if (Q < K){
