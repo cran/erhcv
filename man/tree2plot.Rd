@@ -4,20 +4,18 @@
 \alias{tree2plot}
 \title{Plot of a tree structure}
 \usage{
-tree2plot(tree, plot = TRUE, ...)
+tree2plot(tree, structure = FALSE)
 }
 \arguments{
-\item{tree}{the tree under consideration of the form provided by the function hclust2tree)}
+\item{tree}{the tree under consideration (of the form provided by the function hclust2tree)}
 
-\item{plot}{show a basic plot the tree ?}
-
-\item{...}{extra parameters passed to igraph.plot}
+\item{structure}{logical. Should the data.tree structure be returned rather than the plot?}
 }
 \value{
-a plot or graph.data.frame object
+a plot or data.tree object
 }
 \description{
-Provide a plot or a graph.data.frame object for a given tree structure.
+Provide the plot or the data.tree object for a given tree structure.
 }
 \author{
 Simon-Pierre Gadoury
